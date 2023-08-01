@@ -11,7 +11,7 @@ import SwiftUI
 struct AnimatedAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView()
         }
     }
 }

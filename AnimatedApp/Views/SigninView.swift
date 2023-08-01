@@ -46,6 +46,21 @@ struct SigninView: View {
                     .customTextField(image: "Icon Lock")
                     
             }
+            Button {
+                //action
+            } label: {
+                Image(systemName: "arrow.right")
+                    .bold()
+                Text("Sign in")
+                    .bold()
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity)
+            .background(.pink)
+            .foregroundColor(.white)
+            .roundedCorner(20, corners: [.topRight, .bottomLeft, .bottomRight])
+            .roundedCorner(5, corners: [.topLeft])
+
             
             
             HStack{

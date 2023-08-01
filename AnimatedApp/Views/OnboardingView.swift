@@ -10,8 +10,41 @@ import SwiftUI
 struct OnboardingView: View {
     
     @State var animatedBackground: Double = 0.0
+    @State var showModel = false
     
     var body: some View {
+        ZStack{
+            content
+//                .offset(y: showModel ? -50 : 0)
+    
+            Color("Shadow")
+                .opacity(showModel ? 0.4 : 0)
+                .ignoresSafeArea()
+            if showModel{
+                SigninView()
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .overlay {
+                        Button {
+                            withAnimation(.spring()){
+                                showModel = false
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .frame(width: 36, height: 36, alignment: .center)
+                                .foregroundColor(.black)
+                                .background(.white)
+                                .mask(Circle())
+                                .shadow(color: Color("Shadow").opacity(0.3), radius: 5, x: 0, y: 3)
+                        }
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                    }
+                    .zIndex(1)
+            }
+        }
+        
+    }
+    
+    var content: some View{
         VStack(spacing: -10){
             HStack{
                 Spacer()
@@ -46,6 +79,11 @@ struct OnboardingView: View {
                     .overlay(alignment: .bottomLeading) {
                         Button {
                             // action
+                            DispatchQueue.main.asyncAfter(deadline: .now()+0.5,execute: {
+                                withAnimation(.spring()){
+                                    showModel = true
+                                }
+                            })
                         } label: {
                             Image(systemName: "creditcard")
                                 .foregroundColor(Color.pink)
@@ -78,6 +116,7 @@ struct OnboardingView: View {
                 animatedBackground = 1
             }
         }
+
     }
 }
 
